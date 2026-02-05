@@ -1,11 +1,11 @@
 function  Header(){
 
     return(
-        <section className="header-section">
+        <div className="header-section">
             <h1>
                 Github  -  Fetcher
             </h1>
-        </section>
+        </div>
 
     );
 }

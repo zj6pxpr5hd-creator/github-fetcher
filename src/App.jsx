@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -8,9 +7,18 @@ function App() {
   
   return (
     <div className="app-container">
-      <Header />
-      <Body />
-      <Footer />      
+      <a className="skip-link" href="#main-content">
+        Skip to main content
+      </a>
+      <header>
+        <Header />
+      </header>
+      <main id="main-content">
+        <Body />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
