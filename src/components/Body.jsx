@@ -106,7 +106,7 @@ function Body(){
                     id="github-search"
                     className="search-input"
                     type="search"
-                    placeholder="e.g. torvalds"
+                    placeholder="e.g. zj6pxpr5hd-creator"
                     autoComplete="off"
                     onChange={(e)=>{setInput(e.target.value)}}
                 />
