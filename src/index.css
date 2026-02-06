@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.5;
   font-weight: 400;
 
@@ -25,6 +25,7 @@
   --text: #f1f6fc;
   --accent: #141b23;
   --lines: #3e434b;
+  --repo-title:  #4493f8;
 }
 
 
@@ -40,9 +41,13 @@
 body {
   background-color: var(--bg-2);
   margin: 0;
-  height: 100%;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  height: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   line-height: 1.6;
+}
+
+.app-container{
+  min-height: 100vh;
 }
 
 
@@ -128,7 +133,7 @@ button:focus-visible{
 =============*/
 
 section{
-  padding: 10rem 0;
+  padding: 0;
 }
 
 /*============
@@ -138,6 +143,8 @@ section{
 .body-section{
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  padding-top: 4rem;
+  padding-bottom: 6rem;
   max-width: 980px;
   margin: 0 auto;
 }
@@ -218,6 +225,42 @@ section{
   border: 0;
 }
 
+.repo-card{
+  padding: 1.5rem  1.5rem;
+  border-top: 1px solid var(--lines);
+  color: var(--text);
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.repo-title{
+  color: var(--repo-title);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.repo-text{
+  display: block;
+  margin-block-start: 0.7em;
+  margin-block-end: 0.7em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+
+.repo-link{
+  color: var(--text);
+  display: block;
+  margin-block-start: 0.7em;
+  margin-block-end: 0.7em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+
+
+
 @media (max-width: 640px){
   .search-bar{
     grid-template-columns: 1fr;
@@ -235,7 +278,7 @@ section{
 */
 
 
-.header-section{
+header{
   padding: 0; 
   margin: 0;
   border-bottom: 1px solid var(--lines);

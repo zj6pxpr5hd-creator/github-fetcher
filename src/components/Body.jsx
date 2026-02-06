@@ -1,10 +1,11 @@
 import { useState } from "react";
+import RepoCard from "./RepoCard";
 
 function Body(){
 
     const [input, setInput] = useState("");
 
-    const [repos, setRepos] = useState([]);
+    const [repos, setRepos] = useState(null);
 
     const  [loading, setLoading] = useState(false);
     const [error, setError] =  useState("");
@@ -12,13 +13,13 @@ function Body(){
 
     const handleSubmit =  (e) => {
         e.preventDefault();
+        setRepos(null); //resets repos to empty (better user expirience)
 
         if(!isValidGithubUser(input)){
             setError("Enter a valid GitHub username.");
             return;
         }
 
-        setRepos([]); //resets repos to empty (better user expirience)
         
         fetchGithub(input.trim());
         setInput("");
@@ -37,11 +38,20 @@ function Body(){
             const response = await fetch(`https://api.github.com/users/${username}/repos`);
 
             if(!response.ok){ //in case the request arrived BUT did not produced the result (ex. the response is 404)
-                throw new Error('User not found or API issue');
+                //check specific status code to give better feedback to user
+                switch  (response.status){
+                    case 404: 
+                        throw new Error('User not found');
+                    case 403:
+                        throw new Error('Rate limit reached, try again later');
+                    default:
+                        throw new Error('Something went wrong on the server');
+                }
+                
             }
             // 5) Request was successful, turn the raw response in a Javascript array
             const data = await response.json();
-            console.log(data); //FOR TESTING
+
             // 6) Success => save repos
             setRepos(data);
             
@@ -77,7 +87,7 @@ function Body(){
                     id="github-search"
                     className="search-input"
                     type="search"
-                    placeholder="e.g. torvalds or vercel/next.js"
+                    placeholder="e.g. torvalds"
                     autoComplete="off"
                     onChange={(e)=>{setInput(e.target.value)}}
                 />
@@ -86,11 +96,22 @@ function Body(){
                 </button>
             </form>
             {error && <p className="body-subtitle">{error}</p>}
-            <ul>
-            {repos.length!==0 && (repos.map( (repo, index) =>  {
-                return <li key = {repo.id}>{repo.name}</li>
-            }))}
-            </ul>
+            
+            {repos && (
+            repos.length  >  0 
+            ? (
+                    repos.map( (repo) =>  {
+                        return <RepoCard 
+                        repo = {repo} 
+                        key={repo.id} 
+                        />
+                    }
+                )
+            ) 
+            : (<p className="body-subtitle">No public repositories found for this user.</p>)
+            )
+            }
+            
         </section>
     );
 }
