@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RepoCard from "./RepoCard";
 import ProfileSummary from "./ProfileSummary";
+import isValidGithubUser from "../utils/isValidGithubUser";
 
 function Body(){
 
@@ -20,7 +21,6 @@ function Body(){
             setError("Enter a valid GitHub username.");
             return;
         }
-
         
         fetchGithub(input.trim());
         setInput("");
@@ -88,11 +88,7 @@ function Body(){
 
     };
 
-    const isValidGithubUser = (value) => {
-        const v = value.trim();
-        const re = /^(?!-)(?!.*--)[A-Za-z0-9-]{1,39}(?<!-)$/;
-        return re.test(v);
-    };
+
 
 
     return(

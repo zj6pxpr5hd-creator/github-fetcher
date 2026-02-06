@@ -1,4 +1,4 @@
-import preferredLanguage from "../utils/github";
+import preferredLanguage from "../utils/preferredLanguage";
 
 function ProfileSummary({ user, repos }) {
 
