@@ -1,19 +1,20 @@
 import { useState } from "react";
 import RepoCard from "./RepoCard";
+import ProfileSummary from "./ProfileSummary";
 
 function Body(){
 
     const [input, setInput] = useState("");
-
-    const [repos, setRepos] = useState(null);
-
+    const [reposdata, setReposdata] = useState(null);
+    const [userdata, setUserdata] = useState(null);
     const  [loading, setLoading] = useState(false);
     const [error, setError] =  useState("");
 
 
     const handleSubmit =  (e) => {
         e.preventDefault();
-        setRepos(null); //resets repos to empty (better user expirience)
+        setReposdata(null); //resets repos to empty (better user expirience)
+        setUserdata(null); //resets repos to empty (better user expirience)
 
         if(!isValidGithubUser(input)){
             setError("Enter a valid GitHub username.");
@@ -34,10 +35,12 @@ function Body(){
         setLoading(true);
         setError("")//resets Errors
 
-        try { // 3) send the request    
-            const response = await fetch(`https://api.github.com/users/${username}/repos`);
 
-            if(!response.ok){ //in case the request arrived BUT did not produced the result (ex. the response is 404)
+        //FIRST fetches the USER information
+        try { // 3) send the request    
+            const response = await fetch(`https://api.github.com/users/${username}`);
+
+            if(!response.ok){ //4) in case the request arrived BUT did not produced the result (ex. the response is 404)
                 //check specific status code to give better feedback to user
                 switch  (response.status){
                     case 404: 
@@ -50,10 +53,30 @@ function Body(){
                 
             }
             // 5) Request was successful, turn the raw response in a Javascript array
-            const data = await response.json();
+            const user = await response.json();
 
-            // 6) Success => save repos
-            setRepos(data);
+            // 6) Success => save user data
+            setUserdata(user);
+            
+            //SECOND fetches user REPOS
+            const responseRepos = await fetch(`https://api.github.com/users/${username}/repos`);
+
+            if(!responseRepos.ok){ 
+                switch  (responseRepos.status){
+                    case 404: 
+                        throw new Error('User not found');
+                    case 403:
+                        throw new Error('Rate limit reached, try again later');
+                    default:
+                        throw new Error('Something went wrong on the server');
+                }
+                
+            }
+            // 5) Request was successful, turn the raw response in a Javascript array
+            const repos = await responseRepos.json();
+
+            // 6) Success => save user data
+            setReposdata(repos);
             
         }catch (err){
             // 7) catch network errors or the error thrown before by me 
@@ -96,11 +119,11 @@ function Body(){
                 </button>
             </form>
             {error && <p className="body-subtitle">{error}</p>}
-            
-            {repos && (
-            repos.length  >  0 
+            {userdata && <ProfileSummary user =  {userdata}repos = {reposdata}/>}
+            {reposdata && (
+            reposdata.length  >  0 
             ? (
-                    repos.map( (repo) =>  {
+                    reposdata.map( (repo) =>  {
                         return <RepoCard 
                         repo = {repo} 
                         key={repo.id} 

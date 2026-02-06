@@ -93,6 +93,7 @@ a{
 
 a:hover{
   opacity: 0.8;
+  text-decoration: underline;
 }
 
 .app-container{
@@ -225,6 +226,14 @@ section{
   border: 0;
 }
 
+.profile-summary{
+  padding: 1.5rem  1.5rem;
+  border-top: 1px solid var(--lines);
+  color: var(--text);
+  margin: 1rem 0;
+  text-align: left;
+}
+
 .repo-card{
   padding: 1.5rem  1.5rem;
   border-top: 1px solid var(--lines);
@@ -233,11 +242,15 @@ section{
   text-align: left;
 }
 
-.repo-title{
+.repo-title, .user-title{
   color: var(--repo-title);
   cursor: pointer;
   font-weight: 700;
   font-size: 1.3rem;
+}
+
+.user-title{
+  font-size: 1.6rem;
 }
 
 .repo-text{
