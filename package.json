@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/zj6pxpr5hd-creator/github-fetcher",
+  "homepage": "https://zj6pxpr5hd-creator.github.io/github-fetcher/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

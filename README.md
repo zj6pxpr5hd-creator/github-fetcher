@@ -1,16 +1,8 @@
-# React + Vite
+# GitHub Fetcher
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a web application that uses the Github REST API to fetch data about the repositories of a user and displays it.
 
-Currently, two official plugins are available:
+Building this project helped me learn how APIs work, how to make a GET request, how to show a loading state, how to handle errors and how to format the data to be shown to the user.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Disclaimer: the request is made without the use of a personal key (unauthenticated request) which means that is only possible to make 60 request/hour.
+This was a conscious decision, since there was no good way to hide the key inside the code since the app is fully client-side.
